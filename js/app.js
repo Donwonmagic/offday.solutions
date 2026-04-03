@@ -1,40 +1,163 @@
+/**
+ * OFF DAY SOLUTIONS | STOREFRONT LOGIC
+ * Handles UI interactions, cart state, and scroll animations.
+ */
+
 document.addEventListener('DOMContentLoaded', () => {
     
-    // ============================================
-    // WCAG 2.1 SC 2.3.3 — REDUCED MOTION GATE
-    // ============================================
-    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    let prefersReducedMotion = motionQuery.matches;
-
-    motionQuery.addEventListener('change', (e) => {
-        prefersReducedMotion = e.matches;
-        if (prefersReducedMotion) {
-            document.querySelectorAll('[data-speed]').forEach((el) => {
-                el.style.transform = 'none';
-            });
-        }
-    });
-
-    // --- 0. SAFETY NET ---
-    setTimeout(() => {
-        if (!document.body.classList.contains('loaded')) {
-            console.log("Safety net triggered: Forcing load.");
-            document.body.classList.add('loaded');
-        }
-    }, 3000);
-
-    // --- 1. PRELOADER ---
-    window.addEventListener('load', () => {
-        setTimeout(() => {
-            document.body.classList.add('loaded');
-        }, 1500);
-    });
-
-    // --- 2. CUSTOM CURSOR (DESKTOP ONLY) ---
-    // position:fixed + viewport coords (clientX/clientY).
-    // No scroll compensation needed.
+    // --- 1. Custom Cursor ---
     const cursor = document.getElementById('cursor');
-    const cursorBlur = document.getElementById('cursor-blur');
+    
+    if (window.matchMedia("(min-width: 768px)").matches && cursor) {
+        // Move cursor
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+        });
+
+        // Expand cursor on clickable elements
+        const clickables = document.querySelectorAll('a, button, .product-card');
+        clickables.forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('active'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('active'));
+        });
+    }
+
+    // --- 2. Scroll Reveal Animations ---
+    const observerOptions = { 
+        threshold: 0.15, 
+        rootMargin: "0px 0px -50px 0px" 
+    };
+    
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                revealObserver.unobserve(entry.target); // Only animate once
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.product-card').forEach(el => {
+        revealObserver.observe(el);
+    });
+
+    // --- 3. Smart Sticky Navigation ---
+    const nav = document.getElementById('store-nav');
+    const cartDrawer = document.getElementById('cart-drawer');
+    let lastScroll = 0;
+
+    window.addEventListener('scroll', () => {
+        const currentScroll = window.pageYOffset;
+        
+        // Don't hide nav if at the top
+        if (currentScroll <= 0) { 
+            nav.classList.remove('hidden');
+            return; 
+        }
+        
+        // Hide nav on scroll down, show on scroll up. 
+        // NEVER hide if the cart drawer is currently open.
+        if (currentScroll > lastScroll && !cartDrawer.classList.contains('active')) {
+            nav.classList.add('hidden');
+        } else {
+            nav.classList.remove('hidden');
+        }
+        
+        lastScroll = currentScroll;
+    });
+
+    // --- 4. Cart Drawer UI Logic ---
+    const cartOverlay = document.getElementById('cart-overlay');
+    const cartCountEl = document.getElementById('cart-count');
+    const cartBody = document.getElementById('cart-body');
+    const checkoutBtn = document.getElementById('checkout-btn');
+    const cartTotalEl = document.getElementById('cart-total-price');
+    
+    let cartState = {
+        items: [],
+        total: 0
+    };
+
+    // Make toggleCart globally available for HTML onclick attributes
+    window.toggleCart = function() {
+        const isActive = cartDrawer.classList.contains('active');
+        
+        if (isActive) {
+            cartDrawer.classList.remove('active');
+            cartOverlay.classList.remove('active');
+            document.body.style.overflow = ''; // Restore scrolling
+        } else {
+            cartDrawer.classList.add('active');
+            cartOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Lock background scrolling
+        }
+    };
+
+    // Make mockAddToCart globally available
+    window.mockAddToCart = function(title, price, imageSrc) {
+        // 1. Add to state
+        cartState.items.push({ title, price, imageSrc });
+        cartState.total += price;
+        
+        // 2. Update Header Count
+        cartCountEl.innerText = cartState.items.length;
+        
+        // 3. Render Cart HTML
+        renderCartUI();
+        
+        // 4. Open Cart to show feedback
+        if (!cartDrawer.classList.contains('active')) {
+            window.toggleCart();
+        }
+        
+        // 5. Visual confirmation on button
+        checkoutBtn.style.background = '#C9A84C'; // Flash Gold
+        checkoutBtn.style.color = '#000';
+        setTimeout(() => {
+            checkoutBtn.style.background = '';
+            checkoutBtn.style.color = '';
+        }, 800);
+    };
+
+    // Internal function to redraw the cart contents
+    function renderCartUI() {
+        if (cartState.items.length === 0) {
+            cartBody.innerHTML = '<span class="empty-cart-msg">Your bag is currently empty.</span>';
+            cartTotalEl.innerText = '$0.00';
+            checkoutBtn.innerText = 'Checkout';
+            return;
+        }
+
+        // Map over items and create HTML string
+        const itemsHTML = cartState.items.map((item, index) => `
+            <div class="cart-item">
+                <img src="${item.imageSrc}" class="cart-item-img" alt="${item.title}">
+                <div class="cart-item-details">
+                    <div>
+                        <h4 class="cart-item-title">${item.title}</h4>
+                        <p class="cart-item-price">$${item.price}.00</p>
+                    </div>
+                    <button class="cart-item-remove" onclick="removeMockItem(${index})">Remove</button>
+                </div>
+            </div>
+        `).join('');
+
+        cartBody.innerHTML = itemsHTML;
+        cartTotalEl.innerText = `$${cartState.total}.00`;
+        checkoutBtn.innerText = 'Proceed to Checkout';
+    }
+
+    // Global function to remove items
+    window.removeMockItem = function(index) {
+        const itemPrice = cartState.items[index].price;
+        cartState.total -= itemPrice;
+        cartState.items.splice(index, 1);
+        
+        cartCountEl.innerText = cartState.items.length;
+        renderCartUI();
+    };
+
+});    const cursorBlur = document.getElementById('cursor-blur');
     const hoverTriggers = document.querySelectorAll('.hover-trigger');
 
     if (window.matchMedia("(min-width: 768px)").matches && cursor && cursorBlur) {
