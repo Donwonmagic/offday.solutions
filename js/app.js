@@ -1,40 +1,166 @@
-/**
- * OFF DAY SOLUTIONS | STOREFRONT LOGIC
- * Handles UI interactions, cart state, and scroll animations.
- */
-
 document.addEventListener('DOMContentLoaded', () => {
     
-    // --- 1. Custom Cursor ---
+    // --- 1. Weightless Custom Cursor & Magnetic Physics ---
     const cursor = document.getElementById('cursor');
+    const follower = document.getElementById('cursor-follower');
     
-    if (window.matchMedia("(min-width: 768px)").matches && cursor) {
-        // Move cursor
+    // Only init if device supports hover
+    if (window.matchMedia("(any-hover: hover)").matches) {
+        document.body.classList.add('custom-cursor-active'); // Safely hide native cursor
+        
+        let mouseX = window.innerWidth / 2;
+        let mouseY = window.innerHeight / 2;
+        let followerX = mouseX;
+        let followerY = mouseY;
+        
         document.addEventListener('mousemove', (e) => {
-            cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            // Update dot instantly
+            cursor.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0)`;
         });
 
-        // Expand cursor on clickable elements
-        const clickables = document.querySelectorAll('a, button, .product-card');
-        clickables.forEach(el => {
-            el.addEventListener('mouseenter', () => cursor.classList.add('active'));
-            el.addEventListener('mouseleave', () => cursor.classList.remove('active'));
+        // Spring animation loop for the follower ring
+        function animateFollower() {
+            // Lerp (Linear Interpolation) for weightless lag effect
+            followerX += (mouseX - followerX) * 0.15;
+            followerY += (mouseY - followerY) * 0.15;
+            follower.style.transform = `translate3d(${followerX}px, ${followerY}px, 0)`;
+            requestAnimationFrame(animateFollower);
+        }
+        animateFollower();
+
+        // Magnetic Buttons Logic
+        const magnetics = document.querySelectorAll('.hover-magnetic');
+        magnetics.forEach(btn => {
+            btn.addEventListener('mousemove', (e) => {
+                const rect = btn.getBoundingClientRect();
+                const h = rect.width / 2;
+                const v = rect.height / 2;
+                const x = e.clientX - rect.left - h;
+                const y = e.clientY - rect.top - v;
+                
+                // Gently pull the button towards the mouse
+                btn.style.transform = `translate3d(${x * 0.3}px, ${y * 0.3}px, 0)`;
+                follower.classList.add('magnetic-active');
+            });
+            btn.addEventListener('mouseleave', () => {
+                btn.style.transform = `translate3d(0, 0, 0)`;
+                follower.classList.remove('magnetic-active');
+            });
         });
     }
 
-    // --- 2. Scroll Reveal Animations ---
-    const observerOptions = { 
-        threshold: 0.15, 
-        rootMargin: "0px 0px -50px 0px" 
-    };
-    
-    const revealObserver = new IntersectionObserver((entries) => {
+    // --- 2. Parallax & Nav Scroll Logic ---
+    const nav = document.getElementById('store-nav');
+    const parallaxImages = document.querySelectorAll('.parallax-img');
+    let lastScroll = 0;
+
+    window.addEventListener('scroll', () => {
+        const currentScroll = window.pageYOffset;
+        
+        // Glass Nav Logic
+        if (currentScroll > 50) { nav.classList.add('scrolled'); } 
+        else { nav.classList.remove('scrolled'); }
+
+        // Hide/Show Nav Directionally
+        if (currentScroll > lastScroll && currentScroll > 200 && !document.getElementById('cart-drawer').classList.contains('active')) {
+            nav.classList.add('hidden');
+        } else {
+            nav.classList.remove('hidden');
+        }
+        
+        // Weightless Parallax Calculation
+        parallaxImages.forEach(img => {
+            const speed = 0.08;
+            // Only transform if in viewport (optimization)
+            const rect = img.getBoundingClientRect();
+            if(rect.top < window.innerHeight && rect.bottom > 0) {
+                const yPos = -(rect.top * speed);
+                img.style.transform = `translate3d(0, ${yPos}px, 0)`;
+            }
+        });
+
+        lastScroll = currentScroll;
+    });
+
+    // --- 3. Intersection Observers (The Reveals) ---
+    const revealOptions = { threshold: 0.1, rootMargin: "0px 0px -10% 0px" };
+    const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('is-visible');
-                revealObserver.unobserve(entry.target); // Only animate once
+                observer.unobserve(entry.target);
             }
         });
+    }, revealOptions);
+
+    document.querySelectorAll('.reveal-clip, .fade-up').forEach(el => observer.observe(el));
+
+    // --- 4. Cart State Engine ---
+    const cartDrawer = document.getElementById('cart-drawer');
+    const cartOverlay = document.getElementById('cart-overlay');
+    const cartCountEl = document.getElementById('cart-count');
+    const cartBody = document.getElementById('cart-body');
+    const checkoutBtn = document.getElementById('checkout-btn');
+    const cartTotalEl = document.getElementById('cart-total-price');
+    
+    let cartState = { items: [], total: 0 };
+
+    window.toggleCart = function() {
+        const isActive = cartDrawer.classList.contains('active');
+        cartDrawer.classList.toggle('active');
+        cartOverlay.classList.toggle('active');
+        document.body.style.overflow = isActive ? '' : 'hidden';
+    };
+
+    window.mockAddToCart = function(title, price, imageSrc) {
+        cartState.items.push({ title, price, imageSrc });
+        cartState.total += price;
+        cartCountEl.innerText = cartState.items.length;
+        renderCartUI();
+        
+        if (!cartDrawer.classList.contains('active')) window.toggleCart();
+        
+        // Interaction feedback
+        checkoutBtn.style.background = '#C9A84C'; 
+        checkoutBtn.style.color = '#000';
+        setTimeout(() => {
+            checkoutBtn.style.background = '';
+            checkoutBtn.style.color = '';
+        }, 800);
+    };
+
+    function renderCartUI() {
+        if (cartState.items.length === 0) {
+            cartBody.innerHTML = '<span class="empty-cart-msg">Your bag is currently empty.</span>';
+            cartTotalEl.innerText = '$0.00';
+            return;
+        }
+        cartBody.innerHTML = cartState.items.map((item, index) => `
+            <div class="cart-item">
+                <img src="${item.imageSrc}" class="cart-item-img" alt="${item.title}">
+                <div class="cart-item-details">
+                    <h4 class="cart-item-title">${item.title}</h4>
+                    <p class="cart-item-price">$${item.price}.00</p>
+                    <button class="cart-item-remove hover-magnetic" onclick="removeMockItem(${index})">Remove</button>
+                </div>
+            </div>
+        `).join('');
+        cartTotalEl.innerText = `$${cartState.total}.00`;
+        
+        // Re-init magnetics for dynamic buttons
+        const newMagnetics = cartBody.querySelectorAll('.hover-magnetic');
+        newMagnetics.forEach(btn => { /* Attach magnetic listeners if needed here */ });
+    }
+
+    window.removeMockItem = function(index) {
+        cartState.total -= cartState.items[index].price;
+        cartState.items.splice(index, 1);
+        cartCountEl.innerText = cartState.items.length;
+        renderCartUI();
+    };
+});        });
     }, observerOptions);
 
     document.querySelectorAll('.product-card').forEach(el => {
