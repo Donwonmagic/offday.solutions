@@ -3,402 +3,212 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Off Day Solutions | Retail</title>
-    <meta name="description" content="Tangible utility for the unstructured hour.">
-    
+    <title>Off Day Solutions — Objects for the Unstructured Hour</title>
+    <meta name="description" content="The retail arm of Off Day Collective. A curated inventory of physical tools for the space between obligations. Arriving 2025.">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
+    <!-- Grain Texture Overlay -->
     <div class="noise-overlay" aria-hidden="true"></div>
-    <div id="cursor" class="custom-cursor"></div>
-    <div id="cursor-follower" class="custom-cursor-follower"></div>
 
+    <!-- Custom Cursor -->
+    <div id="cursor" aria-hidden="true"></div>
+    <div id="cursor-follower" aria-hidden="true"></div>
+
+    <!-- Navigation -->
     <nav class="store-nav" id="store-nav">
-        <a href="/" class="nav-logo hover-magnetic">Off Day Solutions</a>
-        <button class="cart-toggle hover-magnetic" onclick="toggleCart()">
-            Cart [<span id="cart-count">0</span>]
-        </button>
+        <a href="/" class="nav-logo hover-magnetic">
+            <span class="nav-logo-main">Off Day Solutions</span>
+            <span class="nav-logo-sub">Vol. 01</span>
+        </a>
+        <a href="#" class="nav-link hover-magnetic">
+            Off Day Collective <span class="nav-arrow">→</span>
+        </a>
     </nav>
 
-    <div class="cart-overlay" id="cart-overlay" onclick="toggleCart()"></div>
-    <div class="cart-drawer" id="cart-drawer">
-        <div class="cart-header">
-            <h3>Your Bag</h3>
-            <button class="close-cart hover-magnetic" onclick="toggleCart()">✕</button>
+    <!-- Hero -->
+    <header class="hero" id="hero">
+        <!-- Animated ambient orbs -->
+        <div class="hero-orbs" aria-hidden="true">
+            <div class="hero-orb hero-orb--1"></div>
+            <div class="hero-orb hero-orb--2"></div>
+            <div class="hero-orb hero-orb--3"></div>
         </div>
-        <div class="cart-body" id="cart-body">
-            <span class="empty-cart-msg">Your bag is currently empty.</span>
-        </div>
-        <div class="cart-footer">
-            <div class="cart-total">
-                <span>Total</span>
-                <span id="cart-total-price">$0.00</span>
-            </div>
-            <button class="checkout-btn hover-magnetic" id="checkout-btn">Checkout</button>
-        </div>
-    </div>
 
-    <header class="hero">
-        <div class="hero-bg-glow"></div>
-        <div class="hero-content fade-up">
-            <span class="hero-eyebrow">Volume 01 — Retail</span>
-            <h1 class="hero-title">Weightless utility for<br><em>the off day.</em></h1>
+        <div class="hero-content">
+            <span class="hero-eyebrow fade-up">Arriving — 2025</span>
+            <h1 class="hero-title fade-up" style="--delay: 0.1s">
+                Objects for the<br><em>unstructured hour.</em>
+            </h1>
+            <p class="hero-sub fade-up" style="--delay: 0.22s">
+                The retail arm of Off Day Collective. A curated inventory of<br class="hero-br">
+                physical tools for the space between obligations.
+            </p>
+            <a href="#waitlist" class="hero-cta hover-magnetic fade-up" style="--delay: 0.34s">
+                Join the waitlist
+                <span class="cta-line" aria-hidden="true"></span>
+            </a>
+        </div>
+
+        <div class="hero-scroll-hint" aria-hidden="true">
+            <div class="scroll-line"></div>
         </div>
     </header>
 
-    <section class="editorial">
-        <div class="editorial-grid">
-            <div class="editorial-text fade-up">
-                <h2 class="editorial-heading">The physical anchor.</h2>
-                <p>The collective explores the science of rest. Solutions builds the inventory. We design objects that do not demand your attention, but gently anchor it. Tangible, highly-curated tools designed exclusively to separate your free time from the noise of the required week.</p>
+    <!-- Marquee Band -->
+    <section class="marquee-band" aria-hidden="true">
+        <div class="marquee-track" id="marquee-track">
+            <span class="marquee-inner">
+                Ceramics &nbsp;·&nbsp; Cast Iron &nbsp;·&nbsp; Heavy Paper &nbsp;·&nbsp; Ambient Light &nbsp;·&nbsp; Woven Textile &nbsp;·&nbsp; Natural Pigment &nbsp;·&nbsp; Burnished Wood &nbsp;·&nbsp; Cold-Press Linen &nbsp;·&nbsp;
+                Ceramics &nbsp;·&nbsp; Cast Iron &nbsp;·&nbsp; Heavy Paper &nbsp;·&nbsp; Ambient Light &nbsp;·&nbsp; Woven Textile &nbsp;·&nbsp; Natural Pigment &nbsp;·&nbsp; Burnished Wood &nbsp;·&nbsp; Cold-Press Linen &nbsp;·&nbsp;
+            </span>
+        </div>
+    </section>
+
+    <!-- Manifesto -->
+    <section class="manifesto">
+        <div class="manifesto-inner">
+            <div class="manifesto-header fade-up">
+                <span class="section-label">The Brief</span>
+                <div class="manifesto-rule"></div>
             </div>
-            <div class="editorial-image-wrapper reveal-clip">
-                <img src="https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?auto=format&fit=crop&w=1200&q=80" alt="Abstract shadow architecture" class="parallax-img">
+            <h2 class="manifesto-text split-reveal">
+                We build things that ask nothing of you.
+            </h2>
+            <p class="manifesto-body fade-up">
+                The week is structured. The demands are loud. Solutions is an inventory of physical objects
+                engineered around the off day — the hours with no agenda. Nothing to optimise.
+                Nothing to track. Each object is chosen for its capacity to anchor you, quietly,
+                in the present tense.
+            </p>
+            <div class="manifesto-footnote fade-up">
+                <span>— A project of Off Day Collective</span>
             </div>
         </div>
     </section>
 
-    <main class="gallery" id="gallery">
-        
-        <article class="product-card">
-            <div class="product-image-wrapper reveal-clip hover-magnetic">
-                <img src="https://images.unsplash.com/photo-1610747475150-e889a7f3dfab?auto=format&fit=crop&w=800&q=80" alt="The Morning Anchor" class="parallax-img">
-                <button class="quick-add" onclick="mockAddToCart('The Morning Anchor', 45, 'https://images.unsplash.com/photo-1610747475150-e889a7f3dfab?auto=format&fit=crop&w=200&q=80')">Add to Bag — $45</button>
-            </div>
-            <div class="product-meta fade-up">
-                <div>
-                    <h2 class="product-title">The Morning Anchor</h2>
-                    <p class="product-subtitle">Ceramic / 12oz / Hand-thrown</p>
+    <!-- Product Preview -->
+    <section class="preview">
+        <div class="preview-header fade-up">
+            <span class="section-label">Coming Soon</span>
+            <p class="preview-intro">Three objects. Arriving in sequence.</p>
+        </div>
+
+        <div class="preview-grid">
+
+            <article class="preview-card">
+                <div class="preview-img-wrap reveal-clip">
+                    <img
+                        src="https://images.unsplash.com/photo-1610747475150-e889a7f3dfab?auto=format&fit=crop&w=900&q=80"
+                        alt="Ceramic object, blurred preview"
+                        class="parallax-img"
+                    >
+                    <div class="preview-overlay">
+                        <span class="preview-overlay-text">— Arriving —</span>
+                    </div>
                 </div>
-                <p class="product-price">$45</p>
-            </div>
-        </article>
-
-        <article class="product-card">
-            <div class="product-image-wrapper reveal-clip hover-magnetic">
-                <img src="https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=800&q=80" alt="The Day Canvas" class="parallax-img">
-                <button class="quick-add" onclick="mockAddToCart('The Day Canvas', 32, 'https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=200&q=80')">Add to Bag — $32</button>
-            </div>
-            <div class="product-meta fade-up">
-                <div>
-                    <h2 class="product-title">The Day Canvas</h2>
-                    <p class="product-subtitle">Heavyweight Paper / Blank / Unstructured</p>
+                <div class="preview-meta fade-up">
+                    <span class="preview-category">Ceramics</span>
+                    <h3 class="preview-name">The Morning Anchor</h3>
+                    <span class="preview-detail">Hand-thrown / 12oz</span>
                 </div>
-                <p class="product-price">$32</p>
-            </div>
-        </article>
+            </article>
 
-        <article class="product-card">
-            <div class="product-image-wrapper reveal-clip hover-magnetic">
-                <img src="https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?auto=format&fit=crop&w=800&q=80" alt="The Evening Weight" class="parallax-img">
-                <button class="quick-add" onclick="mockAddToCart('The Evening Weight', 180, 'https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?auto=format&fit=crop&w=200&q=80')">Add to Bag — $180</button>
-            </div>
-            <div class="product-meta fade-up">
-                <div>
-                    <h2 class="product-title">The Evening Weight</h2>
-                    <p class="product-subtitle">Cast Iron / Ambient Output / Low-Kelvin</p>
+            <article class="preview-card">
+                <div class="preview-img-wrap reveal-clip">
+                    <img
+                        src="https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=900&q=80"
+                        alt="Paper object, blurred preview"
+                        class="parallax-img"
+                    >
+                    <div class="preview-overlay">
+                        <span class="preview-overlay-text">— Arriving —</span>
+                    </div>
                 </div>
-                <p class="product-price">$180</p>
+                <div class="preview-meta fade-up">
+                    <span class="preview-category">Heavy Paper</span>
+                    <h3 class="preview-name">The Day Canvas</h3>
+                    <span class="preview-detail">Unruled / Cold-Press</span>
+                </div>
+            </article>
+
+            <article class="preview-card">
+                <div class="preview-img-wrap reveal-clip">
+                    <img
+                        src="https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?auto=format&fit=crop&w=900&q=80"
+                        alt="Cast iron object, blurred preview"
+                        class="parallax-img"
+                    >
+                    <div class="preview-overlay">
+                        <span class="preview-overlay-text">— Arriving —</span>
+                    </div>
+                </div>
+                <div class="preview-meta fade-up">
+                    <span class="preview-category">Cast Iron</span>
+                    <h3 class="preview-name">The Evening Weight</h3>
+                    <span class="preview-detail">Low-Kelvin / Ambient</span>
+                </div>
+            </article>
+
+        </div>
+    </section>
+
+    <!-- Waitlist -->
+    <section class="waitlist" id="waitlist">
+        <div class="waitlist-inner">
+            <div class="waitlist-text fade-up">
+                <span class="section-label">Join the List</span>
+                <h3 class="waitlist-heading">Be first through the door.</h3>
+                <p class="waitlist-sub">
+                    No newsletters. One message when the doors open.
+                </p>
             </div>
-        </article>
 
-    </main>
+            <div class="waitlist-form-wrap fade-up" style="--delay: 0.1s">
+                <form class="waitlist-form" id="waitlist-form" novalidate>
+                    <div class="form-row">
+                        <input
+                            type="email"
+                            name="email"
+                            class="waitlist-input"
+                            placeholder="your@email.com"
+                            autocomplete="email"
+                            required
+                        >
+                        <button type="submit" class="waitlist-btn hover-magnetic">
+                            Notify Me
+                        </button>
+                    </div>
+                    <p class="form-error" id="form-error" aria-live="polite"></p>
+                </form>
 
+                <div class="waitlist-success" id="waitlist-success" aria-live="polite">
+                    <span class="success-mark">✦</span>
+                    <p>You're on the list. We'll be in touch before the noise does.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
     <footer class="store-footer">
-        <p>© Off Day Solutions. Utility for the unstructured hour.</p>
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <p class="footer-name">Off Day Solutions</p>
+                <p class="footer-parent">A project of Off Day Collective</p>
+            </div>
+            <div class="footer-meta">
+                <p>© 2025 Off Day Solutions.</p>
+                <p>Utility for the unstructured hour.</p>
+            </div>
+        </div>
     </footer>
 
     <script src="js/app.js"></script>
-</body>
-</html>        <div class="cart-footer">
-            <div class="cart-total">
-                <span>Total</span>
-                <span id="cart-total-price">$0.00</span>
-            </div>
-            <button class="checkout-btn" id="checkout-btn">Checkout</button>
-        </div>
-    </div>
-
-    <header class="hero">
-        <div class="marquee-container">
-            <div class="marquee" aria-hidden="true">
-                /// UTILITY FOR THE UNSTRUCTURED HOUR /// NO NOTIFICATIONS /// TACTILE ONLY /// UTILITY FOR THE UNSTRUCTURED HOUR /// NO NOTIFICATIONS /// TACTILE ONLY 
-            </div>
-        </div>
-        <h1 class="hero-title">Tools designed to<br><em>reclaim your time.</em></h1>
-    </header>
-
-    <main class="gallery" id="gallery">
-        
-        <article class="product-card">
-            <div class="product-image-wrapper">
-                <img src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25'%3E%3Crect width='100%25' height='100%25' fill='%23111'/%3E%3C/svg%3E" alt="The Morning Anchor">
-                <button class="quick-add" onclick="mockAddToCart('The Morning Anchor', 45, 'data:image/svg+xml;utf8,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'100%25\' height=\'100%25\'%3E%3Crect width=\'100%25\' height=\'100%25\' fill=\'%23111\'/%3E%3C/svg%3E')">Add to Bag — $45</button>
-            </div>
-            <div class="product-meta">
-                <div>
-                    <h2 class="product-title">The Morning Anchor</h2>
-                    <p class="product-subtitle">Ceramic / 12oz</p>
-                </div>
-                <p class="product-price">$45</p>
-            </div>
-        </article>
-
-        <article class="product-card">
-            <div class="product-image-wrapper">
-                <img src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25'%3E%3Crect width='100%25' height='100%25' fill='%23111'/%3E%3C/svg%3E" alt="The Day Canvas">
-                <button class="quick-add" onclick="mockAddToCart('The Day Canvas', 32, 'data:image/svg+xml;utf8,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'100%25\' height=\'100%25\'%3E%3Crect width=\'100%25\' height=\'100%25\' fill=\'%23111\'/%3E%3C/svg%3E')">Add to Bag — $32</button>
-            </div>
-            <div class="product-meta">
-                <div>
-                    <h2 class="product-title">The Day Canvas</h2>
-                    <p class="product-subtitle">Heavyweight Paper / Blank</p>
-                </div>
-                <p class="product-price">$32</p>
-            </div>
-        </article>
-
-        <article class="product-card">
-            <div class="product-image-wrapper">
-                <img src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25'%3E%3Crect width='100%25' height='100%25' fill='%23111'/%3E%3C/svg%3E" alt="The Evening Weight">
-                <button class="quick-add" onclick="mockAddToCart('The Evening Weight', 180, 'data:image/svg+xml;utf8,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'100%25\' height=\'100%25\'%3E%3Crect width=\'100%25\' height=\'100%25\' fill=\'%23111\'/%3E%3C/svg%3E')">Add to Bag — $180</button>
-            </div>
-            <div class="product-meta">
-                <div>
-                    <h2 class="product-title">The Evening Weight</h2>
-                    <p class="product-subtitle">Cast Iron / Ambient Light</p>
-                </div>
-                <p class="product-price">$180</p>
-            </div>
-        </article>
-
-    </main>
-
-    <script src="js/app.js"></script>
-</body>
-</html>            font-family: 'Inter', sans-serif; font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase;
-            cursor: pointer; display: flex; align-items: center; gap: 8px;
-        }
-        .cart-toggle:hover { color: var(--accent); }
-        .cart-count { background: var(--text-main); color: var(--bg); padding: 2px 6px; border-radius: 50%; font-size: 0.55rem; font-weight: 600; }
-
-        /* --- HERO MARQUEE --- */
-        .hero { height: 70vh; display: flex; flex-direction: column; justify-content: flex-end; padding-bottom: 80px; position: relative; border-bottom: 1px solid var(--border); }
-        .marquee-container { width: 100%; overflow: hidden; white-space: nowrap; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 12px 0; background: rgba(201, 168, 76, 0.02); }
-        .marquee { display: inline-block; animation: scroll 20s linear infinite; font-family: 'Inter', sans-serif; font-size: 0.55rem; letter-spacing: 4px; text-transform: uppercase; color: var(--accent); }
-        @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-
-        .hero-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(3rem, 7vw, 6rem); font-weight: 300; line-height: 1; padding: 0 48px; margin-top: 40px; }
-        .hero-title em { color: var(--text-muted); font-style: italic; }
-
-        /* --- RETAIL GALLERY (Asymmetrical Grid) --- */
-        .gallery { padding: 120px 48px; max-width: 1600px; margin: 0 auto; display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px; }
-        
-        .product-card { position: relative; cursor: pointer; opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
-        .product-card.visible { opacity: 1; transform: translateY(0); }
-        
-        /* Staggered sizing */
-        .product-card:nth-child(1) { grid-column: 1 / 8; }
-        .product-card:nth-child(2) { grid-column: 9 / 13; margin-top: 120px; }
-        .product-card:nth-child(3) { grid-column: 3 / 11; margin-top: 80px; }
-
-        .product-image-wrapper { width: 100%; aspect-ratio: 4/5; background: #0A0A0A; overflow: hidden; position: relative; border: 1px solid var(--border); }
-        .product-image-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); opacity: 0.5; }
-        .product-card:hover .product-image-wrapper img { transform: scale(1.04); opacity: 0.8; }
-
-        .product-meta { padding: 24px 0; display: flex; justify-content: space-between; align-items: flex-start; }
-        .product-title { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 300; margin-bottom: 8px; }
-        .product-price { font-family: 'Inter', sans-serif; font-size: 0.8rem; color: var(--text-muted); }
-        
-        /* Quick Add Button */
-        .quick-add {
-            position: absolute; bottom: 0; left: 0; width: 100%; background: var(--text-main); color: var(--bg);
-            border: none; padding: 18px 0; font-family: 'Inter', sans-serif; font-size: 0.6rem; letter-spacing: 2px; text-transform: uppercase;
-            transform: translateY(100%); transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); cursor: pointer; font-weight: 600;
-        }
-        .product-image-wrapper:hover .quick-add { transform: translateY(0); }
-        .quick-add:hover { background: var(--accent); color: var(--bg); }
-
-        /* --- SLIDING CART DRAWER --- */
-        .cart-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); z-index: 1999; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
-        .cart-overlay.active { opacity: 1; pointer-events: auto; }
-        
-        .cart-drawer {
-            position: fixed; top: 0; right: 0; width: 100%; max-width: 440px; height: 100vh;
-            background: var(--bg); border-left: 1px solid var(--border); z-index: 2000;
-            transform: translateX(100%); transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-            display: flex; flex-direction: column;
-        }
-        .cart-drawer.active { transform: translateX(0); }
-        
-        .cart-header { padding: 32px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
-        .cart-header h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 300; }
-        .close-cart { background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 1.2rem; }
-        .close-cart:hover { color: var(--text-main); }
-        
-        .cart-body { flex-grow: 1; padding: 32px; overflow-y: auto; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        .empty-cart-msg { font-family: 'Inter', sans-serif; font-size: 0.75rem; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; }
-        
-        .cart-footer { padding: 32px; border-top: 1px solid var(--border); }
-        .checkout-btn {
-            width: 100%; background: var(--text-main); color: var(--bg); border: none; padding: 20px;
-            font-family: 'Inter', sans-serif; font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase;
-            font-weight: 600; cursor: pointer; transition: background 0.3s;
-        }
-        .checkout-btn:hover { background: var(--accent); }
-
-        @media (max-width: 768px) {
-            .gallery { grid-template-columns: 1fr; padding: 60px 24px; }
-            .product-card:nth-child(n) { grid-column: 1 / -1; margin-top: 40px; }
-            .hero-title { font-size: 2.5rem; padding: 0 24px; }
-        }
-    </style>
-</head>
-<body>
-
-    <div class="noise"></div>
-
-    <nav class="store-nav" id="store-nav">
-        <a href="/" class="nav-logo">Off Day Solutions</a>
-        <button class="cart-toggle" onclick="toggleCart()">
-            Cart <span class="cart-count" id="cart-count">0</span>
-        </button>
-    </nav>
-
-    <div class="cart-overlay" id="cart-overlay" onclick="toggleCart()"></div>
-    <div class="cart-drawer" id="cart-drawer">
-        <div class="cart-header">
-            <h3>Your Bag</h3>
-            <button class="close-cart" onclick="toggleCart()">✕</button>
-        </div>
-        <div class="cart-body" id="cart-body">
-            <span class="empty-cart-msg">Your bag is currently empty.</span>
-            </div>
-        <div class="cart-footer">
-            <button class="checkout-btn">Checkout — $0.00</button>
-        </div>
-    </div>
-
-    <header class="hero">
-        <div class="marquee-container">
-            <div class="marquee">
-                /// UTILITY FOR THE UNSTRUCTURED HOUR /// NO NOTIFICATIONS /// TACTILE ONLY /// UTILITY FOR THE UNSTRUCTURED HOUR /// NO NOTIFICATIONS /// TACTILE ONLY 
-            </div>
-        </div>
-        <h1 class="hero-title">Tools designed to<br><em>reclaim your time.</em></h1>
-    </header>
-
-    <main class="gallery" id="gallery">
-        
-        <article class="product-card reveal">
-            <div class="product-image-wrapper">
-                <img src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25'%3E%3Crect width='100%25' height='100%25' fill='%23111'/%3E%3C/svg%3E" alt="Product 1">
-                <button class="quick-add" onclick="mockAddToCart()">Add to Bag — $45</button>
-            </div>
-            <div class="product-meta">
-                <div>
-                    <h2 class="product-title">The Morning Anchor</h2>
-                    <p class="product-price">Ceramic / 12oz</p>
-                </div>
-                <p class="product-price">$45</p>
-            </div>
-        </article>
-
-        <article class="product-card reveal">
-            <div class="product-image-wrapper">
-                <img src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25'%3E%3Crect width='100%25' height='100%25' fill='%23111'/%3E%3C/svg%3E" alt="Product 2">
-                <button class="quick-add" onclick="mockAddToCart()">Add to Bag — $32</button>
-            </div>
-            <div class="product-meta">
-                <div>
-                    <h2 class="product-title">The Day Canvas</h2>
-                    <p class="product-price">Heavyweight Paper / Blank</p>
-                </div>
-                <p class="product-price">$32</p>
-            </div>
-        </article>
-
-        <article class="product-card reveal">
-            <div class="product-image-wrapper">
-                <img src="data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25'%3E%3Crect width='100%25' height='100%25' fill='%23111'/%3E%3C/svg%3E" alt="Product 3">
-                <button class="quick-add" onclick="mockAddToCart()">Add to Bag — $180</button>
-            </div>
-            <div class="product-meta">
-                <div>
-                    <h2 class="product-title">The Evening Weight</h2>
-                    <p class="product-price">Cast Iron / Ambient Light</p>
-                </div>
-                <p class="product-price">$180</p>
-            </div>
-        </article>
-
-    </main>
-
-    <script>
-        // Smooth scroll reveal observer
-        const observerOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-        // Cart Drawer Logic
-        const cartDrawer = document.getElementById('cart-drawer');
-        const cartOverlay = document.getElementById('cart-overlay');
-        let cartCount = 0;
-
-        function toggleCart() {
-            cartDrawer.classList.toggle('active');
-            cartOverlay.classList.toggle('active');
-            // Prevent body scroll when cart is open
-            document.body.style.overflow = cartDrawer.classList.contains('active') ? 'hidden' : '';
-        }
-
-        function mockAddToCart() {
-            cartCount++;
-            document.getElementById('cart-count').innerText = cartCount;
-            
-            // UI Feedback
-            const cartBody = document.getElementById('cart-body');
-            cartBody.innerHTML = `<p style="font-family:'Inter', sans-serif; font-size:0.8rem; color:#F0EDE6;">You have ${cartCount} item(s) in your bag.</p>`;
-            
-            const checkoutBtn = document.querySelector('.checkout-btn');
-            checkoutBtn.innerText = `Checkout — Proceed`;
-            checkoutBtn.style.background = '#C9A84C'; // Flash gold
-            checkoutBtn.style.color = '#000';
-            
-            toggleCart(); // Auto-open cart to show success
-            
-            setTimeout(() => {
-                checkoutBtn.style.background = '';
-                checkoutBtn.style.color = '';
-            }, 1000);
-        }
-
-        // Hide nav on scroll down, show on scroll up
-        let lastScroll = 0;
-        window.addEventListener('scroll', () => {
-            const currentScroll = window.pageYOffset;
-            const nav = document.getElementById('store-nav');
-            
-            if (currentScroll <= 0) { nav.style.transform = "translateY(0)"; return; }
-            if (currentScroll > lastScroll && !cartDrawer.classList.contains('active')) {
-                nav.style.transform = "translateY(-100%)"; // Scroll down -> hide
-            } else {
-                nav.style.transform = "translateY(0)"; // Scroll up -> show
-            }
-            lastScroll = currentScroll;
-        });
-    </script>
 </body>
 </html>
