@@ -108,20 +108,12 @@ document.addEventListener('DOMContentLoaded', () => {
         cardObserver.observe(card);
     });
 
-    // Observe all standard reveal targets
+    // Observe all standard reveal targets (hero .fade-up excluded — CSS animation handles those)
     document.querySelectorAll('.fade-up, .reveal-clip, .split-reveal').forEach(el => {
-        // Skip children of preview cards (handled by cardObserver)
-        if (el.closest('.preview-card')) return;
+        if (el.closest('.preview-card')) return; // handled by cardObserver
+        if (el.closest('.hero')) return;          // handled by CSS animation
         observer.observe(el);
     });
-
-    // Hero content: trigger immediately on load (above the fold)
-    const heroFadeEls = document.querySelectorAll('.hero .fade-up');
-    setTimeout(() => {
-        heroFadeEls.forEach((el, i) => {
-            setTimeout(() => el.classList.add('is-visible'), i * 120);
-        });
-    }, 200);
 
 
     // ── 4. Nav Scroll Behaviour ─────────────────────────────
@@ -174,23 +166,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { passive: true });
 
 
-    // ── 6. Marquee — ensure seamless infinite scroll ────────
-
-    const marqueeTrack = document.getElementById('marquee-track');
-    if (marqueeTrack) {
-        // The HTML already contains two copies of the text for seamless looping.
-        // Animation is handled entirely in CSS (@keyframes marquee-scroll).
-        // Pause on hover for accessibility.
-        const inner = marqueeTrack.querySelector('.marquee-inner');
-        if (inner) {
-            marqueeTrack.addEventListener('mouseenter', () => {
-                inner.style.animationPlayState = 'paused';
-            });
-            marqueeTrack.addEventListener('mouseleave', () => {
-                inner.style.animationPlayState = 'running';
-            });
-        }
-    }
+    // ── 6. Marquee — handled entirely in CSS ───────────────
+    // Animation, loop, and hover-pause are all CSS-driven. No JS needed.
 
 
     // ── 7. Waitlist Form ────────────────────────────────────

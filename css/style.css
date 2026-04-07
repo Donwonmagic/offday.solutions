@@ -26,7 +26,9 @@
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body {
+    background: #050505; /* hardcoded fallback in case custom properties fail */
     background: var(--bg-base);
+    color: #F0EDE6;
     color: var(--text-main);
     font-family: 'Inter', sans-serif;
     font-weight: 300;
@@ -312,13 +314,26 @@ body.custom-cursor-active * { cursor: none !important; }
 .fade-up {
     opacity: 0;
     transform: translateY(28px);
-    transition: opacity 0.9s var(--ease-out-expo),
-                transform 0.9s var(--ease-out-expo);
+    transition: opacity 0.9s var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1)),
+                transform 0.9s var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1));
     transition-delay: var(--delay, 0s);
 }
 .fade-up.is-visible {
     opacity: 1;
     transform: translateY(0);
+}
+
+/* Hero elements: CSS animation as the primary reveal — never stuck invisible */
+@keyframes hero-reveal {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+.hero .fade-up {
+    /* 'both' = hidden before delay, stays visible after — no JS required */
+    animation: hero-reveal 1s cubic-bezier(0.16, 1, 0.3, 1)
+               calc(var(--delay, 0s) + 0.35s) both;
+    /* keep transition for any JS-triggered state changes */
+    transition: none;
 }
 
 /* ── Marquee Band ─────────────────────────────────────────── */
@@ -327,11 +342,18 @@ body.custom-cursor-active * { cursor: none !important; }
     border-bottom: 1px solid var(--ui-border);
     padding: 16px 0;
     overflow: hidden;
+    white-space: nowrap; /* prevent wrapping at every level */
     background: rgba(201, 168, 76, 0.018);
 }
-.marquee-track { display: flex; width: max-content; }
-.marquee-inner {
-    display: block;
+/* Animation lives on the track so -50% is reliably half of both copies */
+.marquee-track {
+    display: inline-flex; /* shrinks to content width, never stretches to 100vw */
+    white-space: nowrap;
+    animation: marquee-scroll 55s linear infinite;
+    will-change: transform;
+}
+.marquee-content {
+    display: inline-block;
     white-space: nowrap;
     font-family: 'Inter', sans-serif;
     font-size: 0.52rem;
@@ -339,13 +361,12 @@ body.custom-cursor-active * { cursor: none !important; }
     letter-spacing: 4px;
     text-transform: uppercase;
     color: var(--accent-gold);
-    padding-right: 0;
-    animation: marquee-scroll 28s linear infinite;
 }
 @keyframes marquee-scroll {
     0%   { transform: translateX(0); }
     100% { transform: translateX(-50%); }
 }
+.marquee-band:hover .marquee-track { animation-play-state: paused; }
 
 /* ── Section Label ────────────────────────────────────────── */
 .section-label {
