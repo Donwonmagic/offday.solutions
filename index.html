@@ -10,6 +10,15 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
+
+    <link rel="alternate" hreflang="en" href="https://offday.solutions/">
+    <link rel="alternate" hreflang="es" href="https://offday.solutions/">
+    <link rel="alternate" hreflang="fr" href="https://offday.solutions/">
+    <link rel="alternate" hreflang="de" href="https://offday.solutions/">
+    <link rel="alternate" hreflang="pt" href="https://offday.solutions/">
+    <link rel="alternate" hreflang="ja" href="https://offday.solutions/">
+    <link rel="alternate" hreflang="zh" href="https://offday.solutions/">
+    <link rel="alternate" hreflang="x-default" href="https://offday.solutions/">
 </head>
 <body>
 
@@ -26,16 +35,33 @@
     <!-- Navigation -->
     <nav class="store-nav" id="store-nav">
         <a href="/" class="nav-logo hover-magnetic">
-            <span class="nav-logo-mark" aria-hidden="true"><span class="nav-logo-od">OD</span><span class="nav-logo-s">S</span></span>
+            <span class="nav-logo-mark" aria-hidden="true"><span class="nav-logo-od">OD</span><span class="nav-logo-sep">·</span><span class="nav-logo-s">S</span></span>
             <span class="nav-logo-text">
                 <span class="nav-logo-main">Off Day Solutions</span>
                 <span class="nav-logo-sub">Vol. 01</span>
             </span>
         </a>
-        <a href="https://www.offdaycollective.com" class="nav-link hover-magnetic" target="_blank" rel="noopener noreferrer">
-            <svg class="nav-odc-mark" viewBox="0 0 200 200" width="18" height="18" aria-hidden="true" fill="none" xmlns="http://www.w3.org/2000/svg"><polygon points="100,18 171,59 171,141 100,182 29,141 29,59" stroke="#2E6070" stroke-width="9" stroke-linejoin="round"/><polygon points="131,46 162,100 131,154 69,154 38,100 69,46" stroke="#2E6070" stroke-width="9" stroke-linejoin="round"/><rect x="82" y="72" width="12" height="56" rx="2" fill="#C05530"/><rect x="106" y="72" width="12" height="56" rx="2" fill="#C05530"/></svg>
-            Off Day Collective <span class="nav-arrow">→</span>
-        </a>
+        <div class="nav-right">
+            <div class="lang-picker" id="lang-picker">
+                <button class="lang-btn hover-magnetic" id="lang-btn" aria-haspopup="listbox" aria-expanded="false" aria-label="Select language">
+                    <span id="lang-code">EN</span>
+                    <span class="lang-chevron" aria-hidden="true">↓</span>
+                </button>
+                <ul class="lang-dropdown" id="lang-dropdown" role="listbox" aria-label="Language options">
+                    <li role="option" data-lang="en"  class="lang-option active">English</li>
+                    <li role="option" data-lang="es"  class="lang-option">Español</li>
+                    <li role="option" data-lang="fr"  class="lang-option">Français</li>
+                    <li role="option" data-lang="de"  class="lang-option">Deutsch</li>
+                    <li role="option" data-lang="pt"  class="lang-option">Português</li>
+                    <li role="option" data-lang="ja"  class="lang-option">日本語</li>
+                    <li role="option" data-lang="zh"  class="lang-option">中文</li>
+                </ul>
+            </div>
+            <a href="https://www.offdaycollective.com" class="nav-link hover-magnetic" target="_blank" rel="noopener noreferrer">
+                <svg class="nav-odc-mark" viewBox="0 0 200 200" width="18" height="18" aria-hidden="true" fill="none" xmlns="http://www.w3.org/2000/svg"><polygon points="100,18 171,59 171,141 100,182 29,141 29,59" stroke="#2E6070" stroke-width="9" stroke-linejoin="round"/><polygon points="131,46 162,100 131,154 69,154 38,100 69,46" stroke="#2E6070" stroke-width="9" stroke-linejoin="round"/><rect x="82" y="72" width="12" height="56" rx="2" fill="#C05530"/><rect x="106" y="72" width="12" height="56" rx="2" fill="#C05530"/></svg>
+                Off Day Collective <span class="nav-arrow">→</span>
+            </a>
+        </div>
     </nav>
 
     <!-- Hero -->
@@ -48,16 +74,16 @@
         </div>
 
         <div class="hero-content">
-            <span class="hero-eyebrow fade-up">Arriving — 2025</span>
-            <h1 class="hero-title fade-up" style="--delay: 0.1s">
+            <span class="hero-eyebrow fade-up" data-i18n="hero.eyebrow">Arriving — 2025</span>
+            <h1 class="hero-title fade-up" style="--delay: 0.1s" data-i18n-html="hero.title">
                 Objects for the<br><em>unstructured hour.</em>
             </h1>
-            <p class="hero-sub fade-up" style="--delay: 0.22s">
+            <p class="hero-sub fade-up" style="--delay: 0.22s" data-i18n-html="hero.sub">
                 The retail arm of Off Day Collective. A curated inventory of<br class="hero-br">
                 physical tools for the space between obligations.
             </p>
             <a href="#waitlist" class="hero-cta hover-magnetic fade-up" style="--delay: 0.34s">
-                Join the waitlist
+                <span data-i18n="hero.cta">Join the waitlist</span>
                 <span class="cta-line" aria-hidden="true"></span>
             </a>
         </div>
@@ -70,7 +96,7 @@
     <!-- Marquee Band -->
     <section class="marquee-band" aria-hidden="true">
         <div class="marquee-track">
-            <span class="marquee-content">Ceramics &nbsp;·&nbsp; Cast Iron &nbsp;·&nbsp; Heavy Paper &nbsp;·&nbsp; Ambient Light &nbsp;·&nbsp; Woven Textile &nbsp;·&nbsp; Natural Pigment &nbsp;·&nbsp; Burnished Wood &nbsp;·&nbsp; Cold-Press Linen &nbsp;·&nbsp; Pressed Glass &nbsp;·&nbsp; Botanical Extract &nbsp;·&nbsp; Raw Stone &nbsp;·&nbsp; Hand-Stitched Leather &nbsp;·&nbsp; Beeswax &nbsp;·&nbsp; Smoked Oak &nbsp;·&nbsp; Matte Brass &nbsp;·&nbsp; Reclaimed Slate &nbsp;·&nbsp;</span><span class="marquee-content">Ceramics &nbsp;·&nbsp; Cast Iron &nbsp;·&nbsp; Heavy Paper &nbsp;·&nbsp; Ambient Light &nbsp;·&nbsp; Woven Textile &nbsp;·&nbsp; Natural Pigment &nbsp;·&nbsp; Burnished Wood &nbsp;·&nbsp; Cold-Press Linen &nbsp;·&nbsp; Pressed Glass &nbsp;·&nbsp; Botanical Extract &nbsp;·&nbsp; Raw Stone &nbsp;·&nbsp; Hand-Stitched Leather &nbsp;·&nbsp; Beeswax &nbsp;·&nbsp; Smoked Oak &nbsp;·&nbsp; Matte Brass &nbsp;·&nbsp; Reclaimed Slate &nbsp;·&nbsp;</span>
+            <span class="marquee-content" data-i18n-html="marquee">Ceramics &nbsp;·&nbsp; Cast Iron &nbsp;·&nbsp; Heavy Paper &nbsp;·&nbsp; Ambient Light &nbsp;·&nbsp; Woven Textile &nbsp;·&nbsp; Natural Pigment &nbsp;·&nbsp; Burnished Wood &nbsp;·&nbsp; Cold-Press Linen &nbsp;·&nbsp; Pressed Glass &nbsp;·&nbsp; Botanical Extract &nbsp;·&nbsp; Raw Stone &nbsp;·&nbsp; Hand-Stitched Leather &nbsp;·&nbsp; Beeswax &nbsp;·&nbsp; Smoked Oak &nbsp;·&nbsp; Matte Brass &nbsp;·&nbsp; Reclaimed Slate &nbsp;·&nbsp;</span><span class="marquee-content" data-i18n-html="marquee">Ceramics &nbsp;·&nbsp; Cast Iron &nbsp;·&nbsp; Heavy Paper &nbsp;·&nbsp; Ambient Light &nbsp;·&nbsp; Woven Textile &nbsp;·&nbsp; Natural Pigment &nbsp;·&nbsp; Burnished Wood &nbsp;·&nbsp; Cold-Press Linen &nbsp;·&nbsp; Pressed Glass &nbsp;·&nbsp; Botanical Extract &nbsp;·&nbsp; Raw Stone &nbsp;·&nbsp; Hand-Stitched Leather &nbsp;·&nbsp; Beeswax &nbsp;·&nbsp; Smoked Oak &nbsp;·&nbsp; Matte Brass &nbsp;·&nbsp; Reclaimed Slate &nbsp;·&nbsp;</span>
         </div>
     </section>
 
@@ -78,20 +104,20 @@
     <section class="manifesto">
         <div class="manifesto-inner">
             <div class="manifesto-header fade-up">
-                <span class="section-label">The Brief</span>
+                <span class="section-label" data-i18n="manifesto.label">The Brief</span>
                 <div class="manifesto-rule"></div>
             </div>
-            <h2 class="manifesto-text split-reveal">
+            <h2 class="manifesto-text split-reveal" data-i18n="manifesto.h2">
                 We carry things that ask nothing of you.
             </h2>
-            <p class="manifesto-body fade-up">
+            <p class="manifesto-body fade-up" data-i18n-html="manifesto.body">
                 The week is structured. The demands are loud. Solutions is a curated inventory of physical
                 objects gathered around the off day — the hours with no agenda. Nothing to optimise.
                 Nothing to track. Each object is sourced for its capacity to anchor you, quietly,
                 in the present tense.
             </p>
             <div class="manifesto-footnote fade-up">
-                <span>— A project of Off Day Collective</span>
+                <span data-i18n="manifesto.footnote">— A project of Off Day Collective</span>
             </div>
         </div>
     </section>
@@ -99,8 +125,8 @@
     <!-- Product Preview -->
     <section class="preview">
         <div class="preview-header fade-up">
-            <span class="section-label">Coming Soon</span>
-            <p class="preview-intro">Something is forming.</p>
+            <span class="section-label" data-i18n="preview.label">Coming Soon</span>
+            <p class="preview-intro" data-i18n="preview.intro">Something is forming.</p>
         </div>
 
         <div class="preview-grid">
@@ -113,7 +139,7 @@
                         class="parallax-img"
                     >
                     <div class="preview-overlay">
-                        <span class="preview-overlay-text">— Arriving —</span>
+                        <span class="preview-overlay-text" data-i18n="preview.overlay">— Arriving —</span>
                     </div>
                 </div>
                 <div class="preview-meta fade-up">
@@ -129,7 +155,7 @@
                         class="parallax-img"
                     >
                     <div class="preview-overlay">
-                        <span class="preview-overlay-text">— Arriving —</span>
+                        <span class="preview-overlay-text" data-i18n="preview.overlay">— Arriving —</span>
                     </div>
                 </div>
                 <div class="preview-meta fade-up">
@@ -145,7 +171,7 @@
                         class="parallax-img"
                     >
                     <div class="preview-overlay">
-                        <span class="preview-overlay-text">— Arriving —</span>
+                        <span class="preview-overlay-text" data-i18n="preview.overlay">— Arriving —</span>
                     </div>
                 </div>
                 <div class="preview-meta fade-up">
@@ -160,9 +186,9 @@
     <section class="waitlist" id="waitlist">
         <div class="waitlist-inner">
             <div class="waitlist-text fade-up">
-                <span class="section-label">Join the List</span>
-                <h3 class="waitlist-heading">Be first through the door.</h3>
-                <p class="waitlist-sub">
+                <span class="section-label" data-i18n="waitlist.label">Join the List</span>
+                <h3 class="waitlist-heading" data-i18n="waitlist.heading">Be first through the door.</h3>
+                <p class="waitlist-sub" data-i18n="waitlist.sub">
                     No newsletters. Just one message, when the time comes.
                 </p>
             </div>
@@ -177,10 +203,11 @@
                             name="email"
                             class="waitlist-input"
                             placeholder="your@email.com"
+                            data-i18n-placeholder="waitlist.placeholder"
                             autocomplete="email"
                             required
                         >
-                        <button type="submit" class="waitlist-btn hover-magnetic">
+                        <button type="submit" class="waitlist-btn hover-magnetic" data-i18n="waitlist.btn">
                             Notify Me
                         </button>
                     </div>
@@ -189,7 +216,7 @@
 
                 <div class="waitlist-success" id="waitlist-success" aria-live="polite">
                     <span class="success-mark">✦</span>
-                    <p>You're on the list. We'll be in touch when the doors open.</p>
+                    <p data-i18n="waitlist.success">You're on the list. We'll be in touch when the doors open.</p>
                 </div>
             </div>
         </div>
@@ -204,7 +231,7 @@
             </div>
             <div class="footer-meta">
                 <p>© 2026 Off Day Solutions.</p>
-                <p>Utility for the unstructured hour.</p>
+                <p data-i18n="footer.tagline">Utility for the unstructured hour.</p>
                 <nav class="footer-legal" aria-label="Legal">
                     <a href="/terms" class="footer-legal-link">Terms</a>
                     <span aria-hidden="true">·</span>
@@ -216,6 +243,7 @@
         </div>
     </footer>
 
+    <script src="js/i18n.js"></script>
     <script src="js/app.js"></script>
 </body>
 </html>

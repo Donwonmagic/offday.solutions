@@ -70,6 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    window._initSplitText = initSplitText; // exposed for i18n re-split
     initSplitText('.split-reveal');
 
 
