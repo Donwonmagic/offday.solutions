@@ -13,6 +13,9 @@
 </head>
 <body>
 
+    <!-- Skip to content -->
+    <a href="#main-content" class="skip-link">Skip to content</a>
+
     <!-- Grain Texture Overlay -->
     <div class="noise-overlay" aria-hidden="true"></div>
 
@@ -23,16 +26,20 @@
     <!-- Navigation -->
     <nav class="store-nav" id="store-nav">
         <a href="/" class="nav-logo hover-magnetic">
-            <span class="nav-logo-main">Off Day Solutions</span>
-            <span class="nav-logo-sub">Vol. 01</span>
+            <span class="nav-logo-mark" aria-hidden="true"><span class="nav-logo-od">OD</span><span class="nav-logo-s">S</span></span>
+            <span class="nav-logo-text">
+                <span class="nav-logo-main">Off Day Solutions</span>
+                <span class="nav-logo-sub">Vol. 01</span>
+            </span>
         </a>
-        <a href="#" class="nav-link hover-magnetic">
+        <a href="https://www.offdaycollective.com" class="nav-link hover-magnetic" target="_blank" rel="noopener noreferrer">
+            <svg class="nav-odc-mark" viewBox="0 0 200 200" width="18" height="18" aria-hidden="true" fill="none" xmlns="http://www.w3.org/2000/svg"><polygon points="100,18 171,59 171,141 100,182 29,141 29,59" stroke="#2E6070" stroke-width="9" stroke-linejoin="round"/><polygon points="131,46 162,100 131,154 69,154 38,100 69,46" stroke="#2E6070" stroke-width="9" stroke-linejoin="round"/><rect x="82" y="72" width="12" height="56" rx="2" fill="#C05530"/><rect x="106" y="72" width="12" height="56" rx="2" fill="#C05530"/></svg>
             Off Day Collective <span class="nav-arrow">→</span>
         </a>
     </nav>
 
     <!-- Hero -->
-    <header class="hero" id="hero">
+    <header class="hero" id="main-content">
         <!-- Animated ambient orbs -->
         <div class="hero-orbs" aria-hidden="true">
             <div class="hero-orb hero-orb--1"></div>
@@ -93,7 +100,7 @@
     <section class="preview">
         <div class="preview-header fade-up">
             <span class="section-label">Coming Soon</span>
-            <p class="preview-intro">Three objects. Arriving in sequence.</p>
+            <p class="preview-intro">Something is forming.</p>
         </div>
 
         <div class="preview-grid">
@@ -101,8 +108,8 @@
             <article class="preview-card">
                 <div class="preview-img-wrap reveal-clip">
                     <img
-                        src="https://images.unsplash.com/photo-1610747475150-e889a7f3dfab?auto=format&fit=crop&w=900&q=80"
-                        alt="Ceramic object, blurred preview"
+                        src="https://images.unsplash.com/photo-1604076913837-52ab5629fde9?auto=format&fit=crop&w=900&q=80"
+                        alt="Blurred preview — details not yet revealed"
                         class="parallax-img"
                     >
                     <div class="preview-overlay">
@@ -110,17 +117,15 @@
                     </div>
                 </div>
                 <div class="preview-meta fade-up">
-                    <span class="preview-category">Ceramics</span>
-                    <h3 class="preview-name">The Morning Anchor</h3>
-                    <span class="preview-detail">Hand-thrown / 12oz</span>
+                    <span class="preview-ordinal">No. 001</span>
                 </div>
             </article>
 
             <article class="preview-card">
                 <div class="preview-img-wrap reveal-clip">
                     <img
-                        src="https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=900&q=80"
-                        alt="Paper object, blurred preview"
+                        src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=900&q=80"
+                        alt="Blurred preview — details not yet revealed"
                         class="parallax-img"
                     >
                     <div class="preview-overlay">
@@ -128,17 +133,15 @@
                     </div>
                 </div>
                 <div class="preview-meta fade-up">
-                    <span class="preview-category">Heavy Paper</span>
-                    <h3 class="preview-name">The Day Canvas</h3>
-                    <span class="preview-detail">Unruled / Cold-Press</span>
+                    <span class="preview-ordinal">No. 002</span>
                 </div>
             </article>
 
             <article class="preview-card">
                 <div class="preview-img-wrap reveal-clip">
                     <img
-                        src="https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?auto=format&fit=crop&w=900&q=80"
-                        alt="Cast iron object, blurred preview"
+                        src="https://images.unsplash.com/photo-1618220252344-8ec99ec624b1?auto=format&fit=crop&w=900&q=80"
+                        alt="Blurred preview — details not yet revealed"
                         class="parallax-img"
                     >
                     <div class="preview-overlay">
@@ -146,9 +149,7 @@
                     </div>
                 </div>
                 <div class="preview-meta fade-up">
-                    <span class="preview-category">Cast Iron</span>
-                    <h3 class="preview-name">The Evening Weight</h3>
-                    <span class="preview-detail">Low-Kelvin / Ambient</span>
+                    <span class="preview-ordinal">No. 003</span>
                 </div>
             </article>
 
@@ -169,7 +170,9 @@
             <div class="waitlist-form-wrap fade-up" style="--delay: 0.1s">
                 <form class="waitlist-form" id="waitlist-form" novalidate>
                     <div class="form-row">
+                        <label for="waitlist-email" class="sr-only">Email address</label>
                         <input
+                            id="waitlist-email"
                             type="email"
                             name="email"
                             class="waitlist-input"
@@ -200,8 +203,15 @@
                 <p class="footer-parent">A project of Off Day Collective</p>
             </div>
             <div class="footer-meta">
-                <p>© 2025 Off Day Solutions.</p>
+                <p>© 2026 Off Day Solutions.</p>
                 <p>Utility for the unstructured hour.</p>
+                <nav class="footer-legal" aria-label="Legal">
+                    <a href="/terms" class="footer-legal-link">Terms</a>
+                    <span aria-hidden="true">·</span>
+                    <a href="/privacy" class="footer-legal-link">Privacy</a>
+                    <span aria-hidden="true">·</span>
+                    <a href="/accessibility" class="footer-legal-link">Accessibility</a>
+                </nav>
             </div>
         </div>
     </footer>

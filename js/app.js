@@ -54,11 +54,16 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll(selector).forEach(el => {
             const raw = el.textContent;
             let charIndex = 0;
-            el.innerHTML = raw.split('').map(char => {
-                if (char === ' ') {
-                    return `<span class="char char--space" style="--i:${charIndex++}" aria-hidden="true">&nbsp;</span>`;
-                }
-                return `<span class="char" style="--i:${charIndex++}" aria-hidden="true">${char}</span>`;
+            const words = raw.trim().split(' ');
+            el.innerHTML = words.map((word, wi) => {
+                const charSpans = word.split('').map(char =>
+                    `<span class="char" style="--i:${charIndex++}" aria-hidden="true">${char}</span>`
+                ).join('');
+                // Space span inserted between words (not after last word)
+                const spaceSpan = wi < words.length - 1
+                    ? `<span class="char char--space" style="--i:${charIndex++}" aria-hidden="true">&nbsp;</span>`
+                    : '';
+                return `<span class="word">${charSpans}</span>${spaceSpan}`;
             }).join('');
             // Preserve accessible text via aria-label
             el.setAttribute('aria-label', raw.trim());
