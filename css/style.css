@@ -123,7 +123,7 @@ body.custom-cursor-active *:focus { cursor: none !important; }
 }
 .nav-logo-mark {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 1.35rem;
+    font-size: 1.65rem;
     font-weight: 300;
     line-height: 1;
     display: flex;
@@ -136,9 +136,14 @@ body.custom-cursor-active *:focus { cursor: none !important; }
 .nav-logo-od {
     color: var(--accent-gold);
 }
+.nav-logo-sep {
+    color: var(--text-faint);
+    font-size: 0.65em;
+    margin: 0 1px;
+}
 .nav-logo-s {
-    color: var(--text-muted);
-    font-size: 0.7em;
+    color: rgba(240, 237, 230, 0.52);
+    font-size: 0.82em;
 }
 .nav-logo-text {
     display: flex;
@@ -847,3 +852,68 @@ body.custom-cursor-active *:focus { cursor: none !important; }
     .marquee-track { animation: none; }
     .parallax-img { transform: none !important; }
 }
+
+/* ── Nav Right + Lang Picker ──────────────────────────────── */
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.lang-picker { position: relative; }
+.lang-btn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: none;
+    border: 1px solid var(--ui-border);
+    color: var(--text-muted);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.5rem;
+    font-weight: 400;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    padding: 5px 9px;
+    border-radius: 2px;
+    transition: color 0.3s, border-color 0.3s;
+    line-height: 1;
+}
+.lang-btn:hover { color: var(--text-main); border-color: var(--ui-border-strong); }
+.lang-chevron {
+    font-size: 0.75em;
+    display: inline-block;
+    transition: transform 0.25s var(--ease-out-expo);
+}
+.lang-btn[aria-expanded="true"] .lang-chevron { transform: rotate(180deg); }
+.lang-dropdown {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    list-style: none;
+    background: #0e0e0e;
+    border: 1px solid var(--ui-border);
+    border-radius: 2px;
+    padding: 6px 0;
+    min-width: 130px;
+    opacity: 0;
+    transform: translateY(-6px);
+    pointer-events: none;
+    transition: opacity 0.2s, transform 0.22s var(--ease-out-expo);
+    z-index: 2000;
+}
+.lang-dropdown.is-open {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+.lang-option {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.58rem;
+    font-weight: 300;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    padding: 9px 16px;
+    transition: color 0.2s, background 0.2s;
+    list-style: none;
+}
+.lang-option:hover { color: var(--text-main); background: rgba(255,255,255,0.04); }
+.lang-option.active { color: var(--accent-gold); }
