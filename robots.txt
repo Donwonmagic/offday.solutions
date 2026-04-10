@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Prevent indexing of legal pages (already set via meta robots on those pages)
+Disallow: /terms
+Disallow: /privacy
+
+# Sitemap location
+Sitemap: https://offday.solutions/sitemap.xml

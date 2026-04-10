@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const cursor   = document.getElementById('cursor');
     const follower = document.getElementById('cursor-follower');
 
-    if (window.matchMedia('(any-hover: hover)').matches && cursor && follower) {
+    if (window.matchMedia('(any-hover: hover)').matches && !window.matchMedia('(prefers-reduced-motion: reduce)').matches && cursor && follower) {
         document.body.classList.add('custom-cursor-active');
 
         let mouseX = window.innerWidth / 2;
@@ -150,26 +150,28 @@ document.addEventListener('DOMContentLoaded', () => {
     // ── 5. Parallax on Scroll ───────────────────────────────
 
     const parallaxImages = document.querySelectorAll('.parallax-img');
-    let rafParallax = false;
 
-    window.addEventListener('scroll', () => {
-        if (rafParallax) return;
-        rafParallax = true;
-        requestAnimationFrame(() => {
-            const scrollY = window.pageYOffset;
-            parallaxImages.forEach(img => {
-                const rect = img.getBoundingClientRect();
-                if (rect.bottom < 0 || rect.top > window.innerHeight) {
-                    rafParallax = false;
-                    return;
-                }
-                const speed = 0.07;
-                const offset = -(rect.top * speed);
-                img.style.transform = `scale(1.12) translateY(${offset}px)`;
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        let rafParallax = false;
+
+        window.addEventListener('scroll', () => {
+            if (rafParallax) return;
+            rafParallax = true;
+            requestAnimationFrame(() => {
+                parallaxImages.forEach(img => {
+                    const rect = img.getBoundingClientRect();
+                    if (rect.bottom < 0 || rect.top > window.innerHeight) {
+                        rafParallax = false;
+                        return;
+                    }
+                    const speed = 0.07;
+                    const offset = -(rect.top * speed);
+                    img.style.transform = `scale(1.12) translateY(${offset}px)`;
+                });
+                rafParallax = false;
             });
-            rafParallax = false;
-        });
-    }, { passive: true });
+        }, { passive: true });
+    }
 
 
     // ── 6. Marquee — handled entirely in CSS ───────────────
@@ -187,6 +189,19 @@ document.addEventListener('DOMContentLoaded', () => {
         form.addEventListener('submit', e => {
             e.preventDefault();
 
+            // Honeypot: bots that fill hidden fields are silently discarded
+            const honeypot = form.querySelector('input[name="website"]');
+            if (honeypot && honeypot.value.trim() !== '') {
+                form.style.opacity = '0';
+                form.style.transition = 'opacity 0.4s ease';
+                setTimeout(() => {
+                    form.style.display = 'none';
+                    successEl.style.display = 'block';
+                    requestAnimationFrame(() => successEl.classList.add('visible'));
+                }, 420);
+                return;
+            }
+
             const email = emailInput.value.trim();
             const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
@@ -198,6 +213,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
             errorEl.textContent = '';
 
+            // Disable button to prevent double-submission
+            const submitBtn = form.querySelector('.waitlist-btn');
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.setAttribute('aria-busy', 'true');
+            }
+
             // Animate form out
             form.style.opacity = '0';
             form.style.transition = 'opacity 0.4s ease';
@@ -206,12 +228,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 form.style.display = 'none';
                 successEl.style.display = 'block';
 
-                // Trigger opacity transition via rAF
-                requestAnimationFrame(() => {
-                    requestAnimationFrame(() => {
-                        successEl.classList.add('visible');
-                    });
-                });
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.removeAttribute('aria-busy');
+                }
+
+                // Trigger opacity transition via single rAF
+                requestAnimationFrame(() => successEl.classList.add('visible'));
             }, 420);
         });
 
@@ -233,5 +256,98 @@ document.addEventListener('DOMContentLoaded', () => {
             window.scrollTo({ top, behavior: 'smooth' });
         });
     });
+
+
+    // ── 9. Before You Go — exit intent card ─────────────────
+
+    const bygOverlay  = document.getElementById('byg-overlay');
+    const bygClose    = document.getElementById('byg-close');
+    const bygForm     = document.getElementById('byg-form');
+    const bygSuccess  = document.getElementById('byg-success');
+    const bygError    = document.getElementById('byg-error');
+    const bygInput    = bygForm ? bygForm.querySelector('.byg-input') : null;
+    const BYG_KEY     = 'byg-dismissed';
+
+    function showByg() {
+        // Don't show if already dismissed this session, or if main form was submitted
+        if (!bygOverlay || sessionStorage.getItem(BYG_KEY)) return;
+        bygOverlay.classList.add('is-visible');
+        bygOverlay.setAttribute('aria-hidden', 'false');
+        // Focus the email input after animation
+        setTimeout(() => { if (bygInput) bygInput.focus(); }, 500);
+    }
+
+    function dismissByg() {
+        if (!bygOverlay) return;
+        bygOverlay.classList.remove('is-visible');
+        bygOverlay.setAttribute('aria-hidden', 'true');
+        sessionStorage.setItem(BYG_KEY, '1');
+    }
+
+    if (bygOverlay && bygClose && bygForm && bygInput) {
+
+        // Close button
+        bygClose.addEventListener('click', dismissByg);
+
+        // Click outside card
+        bygOverlay.addEventListener('click', e => {
+            if (e.target === bygOverlay) dismissByg();
+        });
+
+        // Escape key
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape' && bygOverlay.classList.contains('is-visible')) dismissByg();
+        });
+
+        // Desktop: trigger when mouse leaves toward top of viewport
+        const isTouch = window.matchMedia('(any-hover: none)').matches;
+        if (!isTouch) {
+            document.addEventListener('mouseleave', e => {
+                if (e.clientY < 0) showByg();
+            });
+        } else {
+            // Mobile/tablet: show after 30 seconds of engagement
+            setTimeout(showByg, 30000);
+        }
+
+        // Form submission
+        bygForm.addEventListener('submit', e => {
+            e.preventDefault();
+
+            // Honeypot check
+            const honeypot = bygForm.querySelector('input[name="website"]');
+            if (honeypot && honeypot.value.trim() !== '') {
+                dismissByg();
+                return;
+            }
+
+            const email = bygInput.value.trim();
+            const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+            if (!valid) {
+                bygError.textContent = 'Please enter a valid email address.';
+                bygInput.focus();
+                return;
+            }
+
+            bygError.textContent = '';
+            const bygBtn = bygForm.querySelector('.byg-btn');
+            if (bygBtn) { bygBtn.disabled = true; bygBtn.setAttribute('aria-busy', 'true'); }
+
+            // Fade form out, show success
+            bygForm.style.opacity = '0';
+            bygForm.style.transition = 'opacity 0.3s ease';
+            setTimeout(() => {
+                bygForm.style.display = 'none';
+                bygSuccess.classList.add('visible');
+                sessionStorage.setItem(BYG_KEY, '1');
+                // Auto-close after 2.5s
+                setTimeout(dismissByg, 2500);
+            }, 320);
+        });
+
+        bygInput.addEventListener('input', () => {
+            if (bygError.textContent) bygError.textContent = '';
+        });
+    }
 
 });
