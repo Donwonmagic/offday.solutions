@@ -23,7 +23,7 @@
 
     /* ── SPANISH ────────────────────────────────────────────────────────── */
     es: {
-      'hero.eyebrow':        "Llegando — 2025",
+      'hero.eyebrow':        "Llegando — Otoño 2026",
       'hero.title':          "Objetos para la<br><em>hora sin estructura.</em>",
       'hero.sub':            "El brazo minorista de Off Day Collective. Un inventario seleccionado de herramientas físicas para el espacio entre obligaciones.",
       'hero.cta':            "Únete a la lista de espera",
@@ -31,7 +31,7 @@
       'manifesto.label':     "El Resumen",
       'manifesto.h2':        "Llevamos cosas que no te piden nada.",
       'manifesto.body':      "La semana está estructurada. Las demandas son ruidosas. Solutions es un inventario seleccionado de objetos físicos reunidos alrededor del día libre — las horas sin agenda. Nada que optimizar. Nada que rastrear. Cada objeto se obtiene por su capacidad de anclarte, en silencio, en el tiempo presente.",
-      'manifesto.footnote':  "— Un proyecto de Off Day Collective",
+      'manifesto.footnote':  "— Una marca de Off Day Group",
       'preview.label':       "Próximamente",
       'preview.intro':       "Algo está tomando forma.",
       'preview.overlay':     "— Llegando —",
@@ -46,7 +46,7 @@
 
     /* ── FRENCH ─────────────────────────────────────────────────────────── */
     fr: {
-      'hero.eyebrow':        "Bientôt — 2025",
+      'hero.eyebrow':        "Bientôt — Automne 2026",
       'hero.title':          "Objets pour l'<em>heure sans structure.</em>",
       'hero.sub':            "La branche commerciale d'Off Day Collective. Un inventaire sélectionné d'outils physiques pour l'espace entre les obligations.",
       'hero.cta':            "Rejoindre la liste d'attente",
@@ -54,7 +54,7 @@
       'manifesto.label':     "Le Résumé",
       'manifesto.h2':        "Nous portons des choses qui ne vous demandent rien.",
       'manifesto.body':      "La semaine est structurée. Les exigences sont bruyantes. Solutions est un inventaire sélectionné d'objets physiques réunis autour du jour libre — les heures sans agenda. Rien à optimiser. Rien à suivre. Chaque objet est choisi pour sa capacité à vous ancrer, silencieusement, dans le temps présent.",
-      'manifesto.footnote':  "— Un projet d'Off Day Collective",
+      'manifesto.footnote':  "— Une marque d'Off Day Group",
       'preview.label':       "Bientôt",
       'preview.intro':       "Quelque chose prend forme.",
       'preview.overlay':     "— Bientôt —",
@@ -69,7 +69,7 @@
 
     /* ── GERMAN ─────────────────────────────────────────────────────────── */
     de: {
-      'hero.eyebrow':        "Demnächst — 2025",
+      'hero.eyebrow':        "Demnächst — Herbst 2026",
       'hero.title':          "Objekte für die<br><em>unstrukturierte Stunde.</em>",
       'hero.sub':            "Der Einzelhandelsarm von Off Day Collective. Ein kuratiertes Inventar physischer Werkzeuge für den Raum zwischen Verpflichtungen.",
       'hero.cta':            "Warteliste beitreten",
@@ -77,7 +77,7 @@
       'manifesto.label':     "Das Briefing",
       'manifesto.h2':        "Wir tragen Dinge, die nichts von dir verlangen.",
       'manifesto.body':      "Die Woche ist strukturiert. Die Anforderungen sind laut. Solutions ist ein kuratiertes Inventar physischer Objekte, das rund um den freien Tag gesammelt wurde — die Stunden ohne Agenda. Nichts zu optimieren. Nichts zu verfolgen. Jedes Objekt wird für seine Fähigkeit ausgewählt, dich leise im gegenwärtigen Moment zu verankern.",
-      'manifesto.footnote':  "— Ein Projekt von Off Day Collective",
+      'manifesto.footnote':  "— Eine Marke von Off Day Group",
       'preview.label':       "Demnächst",
       'preview.intro':       "Etwas nimmt Form an.",
       'preview.overlay':     "— Bald —",
@@ -92,7 +92,7 @@
 
     /* ── PORTUGUESE ─────────────────────────────────────────────────────── */
     pt: {
-      'hero.eyebrow':        "Em breve — 2025",
+      'hero.eyebrow':        "Em breve — Outono 2026",
       'hero.title':          "Objetos para a<br><em>hora não estruturada.</em>",
       'hero.sub':            "O braço de varejo do Off Day Collective. Um inventário selecionado de ferramentas físicas para o espaço entre obrigações.",
       'hero.cta':            "Entrar na lista de espera",
@@ -100,7 +100,7 @@
       'manifesto.label':     "O Resumo",
       'manifesto.h2':        "Carregamos coisas que não pedem nada de você.",
       'manifesto.body':      "A semana é estruturada. As demandas são barulhentas. Solutions é um inventário selecionado de objetos físicos reunidos em torno do dia livre — as horas sem agenda. Nada para otimizar. Nada para rastrear. Cada objeto é escolhido pela sua capacidade de ancorá-lo, silenciosamente, no tempo presente.",
-      'manifesto.footnote':  "— Um projeto do Off Day Collective",
+      'manifesto.footnote':  "— Uma marca do Off Day Group",
       'preview.label':       "Em breve",
       'preview.intro':       "Algo está se formando.",
       'preview.overlay':     "— Em breve —",
@@ -115,7 +115,7 @@
 
     /* ── JAPANESE ───────────────────────────────────────────────────────── */
     ja: {
-      'hero.eyebrow':        "近日公開 — 2025",
+      'hero.eyebrow':        "近日公開 — 2026年秋",
       'hero.title':          "構造のない時間のための<br><em>オブジェクト。</em>",
       'hero.sub':            "Off Day Collectiveの小売部門。義務と義務の間のための、厳選されたフィジカルツールのインベントリ。",
       'hero.cta':            "ウェイトリストに参加",
@@ -123,14 +123,14 @@
       'manifesto.label':     "概要",
       'manifesto.h2':        "私たちは、何も求めないものを運びます。",
       'manifesto.body':      "週は構造化されています。要求は大きい。Solutionsは、オフデー — アジェンダのない時間 — を中心に集めた物理的なオブジェクトの厳選されたインベントリです。最適化するものも、追跡するものもありません。各オブジェクトは、現在という時間の中に静かにあなたを錨で留める能力のために選ばれています。",
-      'manifesto.footnote':  "— Off Day Collectiveのプロジェクト",
+      'manifesto.footnote':  "— Off Day Groupのブランド",
       'preview.label':       "近日公開",
       'preview.intro':       "何かが形成されています。",
       'preview.overlay':     "— 近日公開 —",
       'waitlist.label':      "リストに参加",
       'waitlist.heading':    "最初のドアを通り抜ける。",
       'waitlist.sub':        "ニュースレターはありません。その時が来たら、メッセージが一つ届くだけです。",
-      'waitlist.placeholder':"your@email.com",
+      'waitlist.placeholder':"メール@例.com",
       'waitlist.btn':        "通知する",
       'waitlist.success':    "リストに登録されました。扉が開いたら連絡します。",
       'footer.tagline':      "構造のない時間のためのユーティリティ。",
@@ -138,7 +138,7 @@
 
     /* ── MANDARIN ───────────────────────────────────────────────────────── */
     zh: {
-      'hero.eyebrow':        "即将到来 — 2025",
+      'hero.eyebrow':        "即将到来 — 2026年秋",
       'hero.title':          "为<em>无结构时光</em>而生的物件。",
       'hero.sub':            "Off Day Collective的零售部门。为义务之间的空间精心策划的实物工具清单。",
       'hero.cta':            "加入候补名单",
@@ -146,14 +146,14 @@
       'manifesto.label':     "简介",
       'manifesto.h2':        "我们携带不向你索取任何东西的物品。",
       'manifesto.body':      "一周是有结构的。需求是嘈杂的。Solutions是一个精心策划的实物清单，围绕着休息日——没有议程的时光——而聚集。没有什么需要优化的，没有什么需要追踪的。每件物品的选择都是因为它能够悄悄地将你锚定在当下。",
-      'manifesto.footnote':  "— Off Day Collective的项目",
+      'manifesto.footnote':  "— Off Day Group旗下品牌",
       'preview.label':       "即将到来",
       'preview.intro':       "某些东西正在形成。",
       'preview.overlay':     "— 即将到来 —",
       'waitlist.label':      "加入名单",
       'waitlist.heading':    "成为第一个进入的人。",
       'waitlist.sub':        "没有新闻通讯。只有一条消息，当时机来临时。",
-      'waitlist.placeholder':"your@email.com",
+      'waitlist.placeholder':"您的邮箱@示例.com",
       'waitlist.btn':        "通知我",
       'waitlist.success':    "您已在名单上。当大门开启时，我们会与您联系。",
       'footer.tagline':      "为无结构时光而生的实用工具。",
@@ -247,6 +247,10 @@
     btn.addEventListener('click', function () {
       var open = dropdown.classList.toggle('is-open');
       btn.setAttribute('aria-expanded', String(open));
+      if (open) {
+        var activeOption = dropdown.querySelector('.lang-option.active');
+        if (activeOption) setTimeout(function () { activeOption.focus(); }, 10);
+      }
     });
 
     dropdown.querySelectorAll('.lang-option').forEach(function (li) {
@@ -265,12 +269,45 @@
       }
     });
 
-    /* Keyboard: Escape closes */
+    /* Keyboard: full arrow key + Escape navigation */
     dropdown.addEventListener('keydown', function (e) {
+      var options = Array.from(dropdown.querySelectorAll('.lang-option'));
+      var focused = document.activeElement;
+      var currentIdx = options.indexOf(focused);
+
       if (e.key === 'Escape') {
         dropdown.classList.remove('is-open');
         btn.setAttribute('aria-expanded', 'false');
         btn.focus();
+        e.preventDefault();
+        return;
+      }
+
+      if (!dropdown.classList.contains('is-open')) return;
+
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        (options[currentIdx + 1] || options[0]).focus();
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        (options[currentIdx - 1] || options[options.length - 1]).focus();
+      } else if (e.key === 'Home') {
+        e.preventDefault();
+        options[0].focus();
+      } else if (e.key === 'End') {
+        e.preventDefault();
+        options[options.length - 1].focus();
+      } else if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        if (focused && focused.dataset.lang) {
+          applyLang(focused.dataset.lang);
+          dropdown.classList.remove('is-open');
+          btn.setAttribute('aria-expanded', 'false');
+          btn.focus();
+        }
+      } else if (e.key === 'Tab') {
+        dropdown.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
       }
     });
   });
