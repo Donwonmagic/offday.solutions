@@ -608,7 +608,45 @@ body.custom-cursor-active *:focus { cursor: none !important; }
 .waitlist {
     border-top: 1px solid var(--ui-border);
     padding: 140px 64px;
+    position: relative;
+    overflow: hidden;
 }
+
+/* Breathing radial glow behind the waitlist */
+.waitlist::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    width: 900px;
+    height: 900px;
+    background: radial-gradient(circle, rgba(201, 168, 76, 0.05) 0%, transparent 68%);
+    pointer-events: none;
+    z-index: 0;
+    animation: breathe-glow 9s ease-in-out infinite;
+}
+@keyframes breathe-glow {
+    0%, 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); }
+    50%       { opacity: 1;   transform: translate(-50%, -50%) scale(1.25); }
+}
+
+/* Ghost letterform — large decorative OD behind the form */
+.waitlist-ghost {
+    position: absolute;
+    bottom: -0.08em;
+    right: -0.04em;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(14rem, 22vw, 26rem);
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: rgba(201, 168, 76, 0.028);
+    pointer-events: none;
+    user-select: none;
+    z-index: 0;
+}
+
 .waitlist-inner {
     max-width: 1200px;
     margin: 0 auto;
@@ -616,6 +654,8 @@ body.custom-cursor-active *:focus { cursor: none !important; }
     grid-template-columns: 1fr 1fr;
     gap: 80px;
     align-items: center;
+    position: relative;
+    z-index: 1;
 }
 .waitlist-heading {
     font-family: 'Cormorant Garamond', serif;
@@ -634,14 +674,41 @@ body.custom-cursor-active *:focus { cursor: none !important; }
 }
 
 /* Form */
-.waitlist-form-wrap { position: relative; }
-.waitlist-form { transition: opacity 0.4s ease; }
+.waitlist-form-wrap {
+    position: relative;
+}
+/* Cursor-tracking radial glow */
+.waitlist-form-wrap::before {
+    content: '';
+    position: absolute;
+    inset: -80px;
+    background: radial-gradient(600px circle at var(--glow-x, 50%) var(--glow-y, 50%), rgba(201, 168, 76, 0.10), transparent 40%);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.5s;
+    z-index: 0;
+}
+.waitlist-form-wrap:hover::before { opacity: 1; }
+.waitlist-form { transition: opacity 0.4s ease; position: relative; z-index: 1; }
 .form-row {
     display: flex;
     gap: 0;
+    position: relative;
     border-bottom: 1px solid var(--ui-border-strong);
     margin-bottom: 16px;
 }
+/* Gold underline draw on focus */
+.form-row::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 0%;
+    height: 1px;
+    background: var(--accent-gold);
+    transition: width 0.65s var(--ease-out-expo);
+}
+.form-row:focus-within::after { width: 100%; }
 .waitlist-input {
     flex: 1;
     background: transparent;
@@ -669,6 +736,24 @@ body.custom-cursor-active *:focus { cursor: none !important; }
     white-space: nowrap;
     transition: color 0.3s;
     position: relative;
+    overflow: hidden;
+}
+/* Shimmer sweep */
+.waitlist-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -120%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(201, 168, 76, 0.14), transparent);
+    animation: btn-shimmer 3.8s ease-in-out infinite;
+    pointer-events: none;
+}
+@keyframes btn-shimmer {
+    0%   { left: -120%; }
+    60%  { left: 200%; }
+    100% { left: 200%; }
 }
 .waitlist-btn::after {
     content: ' →';
@@ -722,6 +807,21 @@ body.custom-cursor-active *:focus { cursor: none !important; }
 .store-footer {
     border-top: 1px solid var(--ui-border);
     padding: 72px 64px 56px;
+    position: relative;
+    overflow: hidden;
+}
+/* Ambient gold glow at the top of the footer */
+.store-footer::before {
+    content: '';
+    position: absolute;
+    top: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 700px;
+    height: 280px;
+    background: radial-gradient(ellipse at center top, rgba(201, 168, 76, 0.07) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
 }
 .footer-inner {
     max-width: 1200px;
@@ -729,6 +829,8 @@ body.custom-cursor-active *:focus { cursor: none !important; }
     display: flex;
     flex-direction: column;
     gap: 56px;
+    position: relative;
+    z-index: 1;
 }
 
 /* Ecosystem 3-column grid */
@@ -1095,6 +1197,23 @@ body.custom-cursor-active *:focus { cursor: none !important; }
     .byg-card { padding: 40px 28px 36px; }
     .byg-overlay { align-items: flex-end; padding: 0; }
     .byg-card { border-radius: 4px 4px 0 0; max-width: 100%; }
+}
+
+/* ── Gold Scrollbar ───────────────────────────────────────── */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg-base); }
+::-webkit-scrollbar-thumb {
+    background: rgba(201, 168, 76, 0.28);
+    border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover { background: rgba(201, 168, 76, 0.55); }
+
+/* ── Reduced Motion — disable decorative animations ──────── */
+@media (prefers-reduced-motion: reduce) {
+    .waitlist::before         { animation: none; }
+    .waitlist-btn::before     { animation: none; }
+    .form-row::after          { transition: none; }
+    .waitlist-form-wrap::before { transition: none; }
 }
 
 /* ── Reduced Motion ───────────────────────────────────────── */
