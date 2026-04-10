@@ -245,7 +245,21 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    // ── 8. Smooth-scroll for in-page anchor ─────────────────
+    // ── 8. Waitlist cursor-tracking glow ────────────────────
+
+    const waitlistFormWrap = document.querySelector('.waitlist-form-wrap');
+    if (waitlistFormWrap && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        waitlistFormWrap.addEventListener('mousemove', e => {
+            const rect = waitlistFormWrap.getBoundingClientRect();
+            const x = ((e.clientX - rect.left) / rect.width) * 100;
+            const y = ((e.clientY - rect.top) / rect.height) * 100;
+            waitlistFormWrap.style.setProperty('--glow-x', x + '%');
+            waitlistFormWrap.style.setProperty('--glow-y', y + '%');
+        });
+    }
+
+
+    // ── 9. Smooth-scroll for in-page anchor ─────────────────
 
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', e => {
