@@ -4,6 +4,82 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
+    // ── 0. Shared constants + Portfolio feature utilities ────
+
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const SCRAMBLE_POOL = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%&·—';
+
+    // Cipher-decode scramble for .split-reveal elements (.char spans)
+    function scrambleElement(el) {
+        if (reducedMotion) {
+            el.querySelectorAll('.char:not(.char--space)').forEach(s => {
+                s.style.opacity = '1';
+                s.style.transform = 'translateY(0)';
+            });
+            return;
+        }
+        el.classList.add('scramble-active');
+        el.querySelectorAll('.char:not(.char--space)').forEach((span, idx) => {
+            const final = span.dataset.finalChar || span.textContent;
+            span.dataset.finalChar = final;
+            const ITERS = 8, DURATION = 400;
+            setTimeout(() => {
+                let count = 0;
+                const iv = setInterval(() => {
+                    if (count >= ITERS) {
+                        clearInterval(iv);
+                        span.textContent = final;
+                        span.style.opacity = '1';
+                        span.style.transform = 'translateY(0)';
+                        return;
+                    }
+                    span.textContent = SCRAMBLE_POOL[Math.floor(Math.random() * SCRAMBLE_POOL.length)];
+                    span.style.opacity = String(0.3 + (count / ITERS) * 0.7);
+                    count++;
+                }, DURATION / ITERS);
+            }, idx * 30);
+        });
+    }
+
+    // Cipher-decode scramble for plain-text elements (section labels)
+    function scrambleLabelText(el) {
+        if (reducedMotion) return;
+        const orig = el.dataset.scrambleOrig || el.textContent.trim();
+        el.dataset.scrambleOrig = orig;
+        let count = 0;
+        const iv = setInterval(() => {
+            if (count >= 14) { clearInterval(iv); el.textContent = orig; return; }
+            el.textContent = orig.split('').map(c =>
+                c === ' ' ? ' ' : SCRAMBLE_POOL[Math.floor(Math.random() * SCRAMBLE_POOL.length)]
+            ).join('');
+            count++;
+        }, 35);
+    }
+
+    // easeOutExpo ordinal counter (No. 000 → No. 00N)
+    function animateOrdinal(el, targetNum, duration) {
+        duration = duration || 600;
+        const start = performance.now();
+        (function tick(now) {
+            const t = Math.min((now - start) / duration, 1);
+            const eased = t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
+            el.textContent = 'No. ' + String(Math.round(eased * targetNum)).padStart(3, '0');
+            if (t < 1) requestAnimationFrame(tick);
+        })(start);
+    }
+
+    // Expose for i18n re-trigger after language switches
+    window._scrambleVisible = function(selector) {
+        document.querySelectorAll(selector).forEach(el => {
+            if (el.classList.contains('is-visible')) {
+                el.querySelectorAll('.char').forEach(s => delete s.dataset.finalChar);
+                scrambleElement(el);
+            }
+        });
+    };
+    window._scrambleLabelText = scrambleLabelText;
+
+
     // ── 1. Custom Cursor + Magnetic Physics ─────────────────
 
     const cursor   = document.getElementById('cursor');
@@ -85,9 +161,37 @@ document.addEventListener('DOMContentLoaded', () => {
         entries.forEach(entry => {
             if (!entry.isIntersecting) return;
             entry.target.classList.add('is-visible');
+            // Cipher-decode replaces the CSS char fade-in
+            if (entry.target.classList.contains('split-reveal')) {
+                scrambleElement(entry.target);
+            }
             observer.unobserve(entry.target);
         });
     }, observerOpts);
+
+    // Word blur-to-sharp reveal — must be defined before the observe-all loop
+    // so it can remove .fade-up before that loop runs (prevents double-observing)
+    function initWordBlur(selector) {
+        document.querySelectorAll(selector).forEach(el => {
+            if (!el.dataset.i18nOrig) el.dataset.i18nOrig = el.innerHTML;
+            const tmp = document.createElement('div');
+            tmp.innerHTML = el.dataset.i18nOrig;
+            const plain = (tmp.textContent || tmp.innerText || '').trim();
+            const words = plain.split(/\s+/);
+            el.innerHTML = words.map((w, wi) =>
+                '<span class="word-unit" style="--wi:' + wi + '">' + w + '</span>'
+            ).join(' ');
+            el.classList.add('word-blur-reveal');
+            el.classList.remove('fade-up');
+            if (el.classList.contains('is-visible')) {
+                el.classList.remove('is-visible');
+                requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add('is-visible')));
+            } else {
+                observer.observe(el);
+            }
+        });
+    }
+    window._initWordBlur = initWordBlur;
 
     // Staggered observer for preview cards
     const cardObserver = new IntersectionObserver((entries) => {
@@ -103,6 +207,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Trigger the clip reveal
                 const wrap = entry.target.querySelector('.reveal-clip');
                 if (wrap) wrap.classList.add('is-visible');
+                // Ordinal count-up — starts 200ms after clip reveal begins
+                if (!reducedMotion) {
+                    const ordinalEl = entry.target.querySelector('.preview-ordinal');
+                    if (ordinalEl) {
+                        const match = ordinalEl.textContent.match(/No\.\s*(\d+)/);
+                        if (match) {
+                            setTimeout(() => animateOrdinal(ordinalEl, parseInt(match[1], 10)), 200);
+                        }
+                    }
+                }
             }, index * 140);
             cardObserver.unobserve(entry.target);
         });
@@ -120,6 +234,40 @@ document.addEventListener('DOMContentLoaded', () => {
         if (el.closest('.hero')) return;          // handled by CSS animation
         observer.observe(el);
     });
+
+    // Word blur-to-sharp on manifesto body — rebuilds innerHTML into word-unit spans.
+    // Element is already observed (matched .fade-up above); observer.observe() inside
+    // initWordBlur is a no-op since the same observer is already watching it.
+    initWordBlur('.manifesto-body');
+
+    // Section label cipher scramble on scroll entry
+    const labelObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            setTimeout(() => scrambleLabelText(entry.target), 200);
+            labelObserver.unobserve(entry.target);
+        });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('.section-label').forEach(el => {
+        if (!el.closest('.hero')) labelObserver.observe(el);
+    });
+
+    // ── 3D Card Tilt + Specular Light ───────────────────────
+    if (!reducedMotion && window.matchMedia('(any-hover: hover)').matches) {
+        document.querySelectorAll('.preview-card').forEach(card => {
+            const wrap = card.querySelector('.preview-img-wrap');
+            if (!wrap) return;
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = (e.clientX - rect.left) / rect.width;
+                const y = (e.clientY - rect.top) / rect.height;
+                wrap.style.transform = 'perspective(600px) rotateX(' + (-(y - 0.5) * 14) + 'deg) rotateY(' + ((x - 0.5) * 18) + 'deg) scale3d(1.02, 1.02, 1)';
+                wrap.style.setProperty('--spec-x', (x * 100) + '%');
+                wrap.style.setProperty('--spec-y', (y * 100) + '%');
+            });
+            card.addEventListener('mouseleave', () => { wrap.style.transform = ''; });
+        });
+    }
 
 
     // ── 4. Nav Scroll Behaviour ─────────────────────────────
