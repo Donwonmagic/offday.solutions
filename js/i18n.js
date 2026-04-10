@@ -187,6 +187,8 @@
         if (el._wasVisible) el.classList.add('is-visible');
         delete el._wasVisible;
       });
+      /* Re-trigger cipher-decode scramble after split + is-visible restored */
+      if (window._scrambleVisible) window._scrambleVisible('.split-reveal');
     }
 
     /* 2. Plain-text elements */
@@ -195,6 +197,11 @@
       if (!el.dataset.i18nOrig) el.dataset.i18nOrig = el.textContent.trim();
       el.textContent = (isEn || !t[key]) ? el.dataset.i18nOrig : t[key];
     });
+    /* Re-scramble section labels whose text changed */
+    document.querySelectorAll('.section-label[data-scramble-orig]').forEach(function (el) {
+      delete el.dataset.scrambleOrig;
+      if (window._scrambleLabelText) window._scrambleLabelText(el);
+    });
 
     /* 3. HTML elements (hero title, hero sub, marquee, manifesto body) */
     document.querySelectorAll('[data-i18n-html]').forEach(function (el) {
@@ -202,6 +209,8 @@
       if (!el.dataset.i18nOrig) el.dataset.i18nOrig = el.innerHTML;
       el.innerHTML = (isEn || !t[key]) ? el.dataset.i18nOrig : t[key];
     });
+    /* Re-run word blur split after HTML content is replaced */
+    if (window._initWordBlur) window._initWordBlur('.manifesto-body');
 
     /* 4. Input placeholders */
     document.querySelectorAll('[data-i18n-placeholder]').forEach(function (el) {
